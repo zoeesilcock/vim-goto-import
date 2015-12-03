@@ -1,5 +1,8 @@
 function! s:goto_import(input)
-  echo(a:input)
+  let file_path = s:extract_file_path(a:input)
+  let current_path = expand('%:p:h')
+
+  execute 'e ' . current_path . '/' . file_path . '.**'
 endfunction
 
 command! -nargs=1 Gotoimport call s:goto_import(<f-args>)

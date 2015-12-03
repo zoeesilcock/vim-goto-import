@@ -1,24 +1,41 @@
 *goto-import.txt* Vim plugin for opening files referenced in import statements.
 
 Author: Zoee Silcock <http://zoeetrope.com>
+Repo: <https://github.com/zoeesilcock/vim-goto-import>
 
 ===============================================================================
 vim-goto-import                                        *goto-import*
 
 CONTENTS
 
-1. Introduction                                    |goto-import-intro|
-1. Mappings                                        |goto-import-mappings|
+1. Introduction                                       |goto-import-intro|
+2. Usage                                              |goto-import-usage|
+3. Mappings                                           |goto-import-mappings|
 
 ===============================================================================
 
-1. Introduction                                    *goto-import-intro*
+1. Introduction                                       *goto-import-intro*
 
 Vim plugin for opening files referenced in import statements.
 
 ===============================================================================
 
-2. Mappings                                        *goto-import-mappings*
+2. Usage                                              *goto-import-usage*
+
+Currently the plugin only supports relative file paths. It assumes that the
+path doesn't include an extension.
+
+The built in mapping allows triggering the plugin using 'gi' from normal or
+visual mode. The mnemonic for this is "goto import", similar to 'gf'.
+
+You can also use command mode:
+>
+:Gotoimport ../my_super_fine_import
+<
+
+===============================================================================
+
+3. Mappings                                           *goto-import-mappings*
 
 You can disable the built in mapping by adding this to your .vimrc:
 >

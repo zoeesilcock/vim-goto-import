@@ -25,11 +25,14 @@ function! s:extract_file_path(input)
   let file_path = a:input
   let single_quotes = matchlist(a:input, '''\(.\{-}\)''')
   let double_quotes = matchlist(a:input, '"\(.\{-}\)"')
+  let rails_js_require = matchlist(a:input, '\/\/= require \(.*\)')
 
   if len(single_quotes) > 0
     let file_path = single_quotes[1]
   elseif len(double_quotes) > 0
     let file_path = double_quotes[1]
+  elseif len(rails_js_require) > 0
+    let file_path = rails_js_require[1]
   end
 
   return file_path

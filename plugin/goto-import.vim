@@ -1,8 +1,6 @@
 function! s:goto_import(input)
   let file_path = s:extract_file_path(a:input)
-  let current_path = expand('%:p:h')
-
-  execute 'e ' . current_path . '/' . file_path . '.**'
+  execute 'e ' . s:pick_file(file_path)
 endfunction
 
 command! -nargs=1 Gotoimport call s:goto_import(<f-args>)
@@ -39,6 +37,22 @@ function! s:extract_file_path(input)
   end
 
   return file_path
+endfunction
+" }}}
+
+" Files {{{
+function! s:pick_file(file_path)
+  let current_path = expand('%:p:h')
+  let extension = expand('%:e')
+  let full_path = current_path . '/' . a:file_path
+
+  if filereadable(full_path . '.' . extension)
+    return full_path . '.' . extension
+  elseif filereadable(expand(full_path . '.**'))
+    return expand(full_path . '.**')
+  end
+
+  return full_path . '.' . extension
 endfunction
 " }}}
 

@@ -1,6 +1,10 @@
 function! s:goto_import(input)
   let file_path = s:extract_file_path(a:input)
-  execute 'e ' . s:pick_file(file_path)
+  let full_path = s:pick_file(file_path)
+
+  if len(full_path) > 1
+    execute 'e ' . s:pick_file(full_path)
+  end
 endfunction
 
 command! -nargs=1 Gotoimport call s:goto_import(<f-args>)
@@ -50,9 +54,24 @@ function! s:pick_file(file_path)
     return full_path . '.' . extension
   elseif filereadable(expand(full_path . '.**'))
     return expand(full_path . '.**')
+  elseif len(expand(full_path . '.**')) > 1
+    call s:build_quickfix_list(expand(full_path . '.**'))
+    return
   end
 
   return full_path . '.' . extension
+endfunction
+
+function! s:build_quickfix_list(files)
+  let file_list = split(a:files, '\n')
+  let list = []
+
+  for file in file_list
+    let list = list + [{ 'filename': file, 'lnum': 0 }]
+  endfor
+
+  call setqflist(list)
+  copen
 endfunction
 " }}}
 

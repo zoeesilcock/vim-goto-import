@@ -54,7 +54,7 @@ function! s:pick_file(file_path)
     return full_path . '.' . extension
   elseif filereadable(expand(full_path . '.**'))
     return expand(full_path . '.**')
-  elseif len(expand(full_path . '.**')) > 1
+  elseif len(split(expand(full_path . '.**'), '\n')) > 1
     call s:build_quickfix_list(expand(full_path . '.**'))
     return
   end

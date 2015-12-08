@@ -3,7 +3,7 @@ function! s:goto_import(input)
   let full_path = s:pick_file(file_path)
 
   if len(full_path) > 1
-    execute 'e ' . s:pick_file(full_path)
+    execute 'e ' . full_path
   end
 endfunction
 
